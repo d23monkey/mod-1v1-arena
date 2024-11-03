@@ -16,7 +16,7 @@ INSERT INTO `command` (`name`, `security`, `help`) VALUES
 ('q1v1 rated', 0, 'Syntax .q1v1 rated\nJoin arena 1v1 rated'),
 ('q1v1 unrated', 0, 'Syntax .q1v1 unrated\nJoin arena 1v1 unrated');
 
-SET @NPC_TEXT_1v1="这个NPC可以让你加入1v1非排名竞技场，创建一个1v1竞技场队伍，以及加入1v1排名竞技场。$B$B如果你不想与NPC互动，你可以使用以下命令来加入或创建竞技场:$B$B.q1v1 rated（加入1v1排名竞技场）$B$B.q1v1 unrated（加入1v1非排名竞技场）$B$B请注意，如果你还没有一个1v1竞技场队伍，使用.q1v1 rated命令会自动为你创建一个。";
+SET @NPC_TEXT_1v1="这个NPC可以让你加入1v1非排名竞技场，创建一个1v1竞技场战队，以及加入1v1排名竞技场。$B$B如果你不想与NPC互动，你可以使用以下命令来加入或创建竞技场:$B$B.q1v1 rated（加入1v1排名竞技场）$B$B.q1v1 unrated（加入1v1非排名竞技场）$B$B请注意，如果你还没有一个1v1竞技场战队，使用.q1v1 rated命令会自动为你创建一个。";
 DELETE FROM `npc_text` WHERE `id`=999992;
 INSERT INTO `npc_text` (`id`, `text0_0`, `text0_1`, `Probability0`) VALUES
 (999992, @NPC_TEXT_1v1, @NPC_TEXT_1v1, 1);

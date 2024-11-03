@@ -85,7 +85,7 @@ public:
         else
         {
             if (Command1v1.JoinQueueArena(player, nullptr, isRated))
-                handler->PSendSysMessage("你已加入单人1v1竞技场队列 {}.", isRated ? "评级" : "非评级");
+                handler->PSendSysMessage("你已加入单人1v1竞技场队列 {}.", isRated ? "积分赛" : "练习赛");
         }
 
         return true;
