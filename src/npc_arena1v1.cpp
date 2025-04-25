@@ -104,7 +104,7 @@ public:
     void OnPlayerLogin(Player* pPlayer) override
     {
         if (sConfigMgr->GetOption<bool>("Arena1v1.Announcer", true))
-            ChatHandler(pPlayer->GetSession()).SendSysMessage("本服务器正在运行 |cff4CFF001v1 竞技场 |r模块.");
+            ChatHandler(pPlayer->GetSession()).SendSysMessage("本服务端已加载 |cff4CFF001v1 竞技场 |r模块.");
     }
 
     void OnPlayerGetMaxPersonalArenaRatingRequirement(const Player* player, uint32 minslot, uint32& maxArenaRating) const override
@@ -153,7 +153,7 @@ bool npc_1v1arena::OnGossipHello(Player* player, Creature* creature)
             AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|TInterface/ICONS/Achievement_Arena_2v2_7:30:30:-20:0|t 解散个人战队", GOSSIP_SENDER_MAIN, NPC_ARENA_1V1_ACTION_DISBAND_ARENA_TEAM, "你确定吗?", 0, false);
         }
 
-        AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|TInterface/ICONS/INV_Misc_Coin_01:30:30:-20:0|t 显示您的统计信息", GOSSIP_SENDER_MAIN, NPC_ARENA_1V1_ACTION_GET_STATISTICS);
+        AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|TInterface/ICONS/INV_Misc_Coin_01:30:30:-20:0|t 战队数据", GOSSIP_SENDER_MAIN, NPC_ARENA_1V1_ACTION_GET_STATISTICS);
     }
 
     AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|TInterface/ICONS/inv_misc_questionmark:30:30:-20:0|t 帮助", GOSSIP_SENDER_MAIN, NPC_ARENA_1V1_ACTION_HELP);
@@ -229,11 +229,11 @@ bool npc_1v1arena::OnGossipSelect(Player* player, Creature* creature, uint32 /*s
             if (at)
             {
                 std::stringstream s;
-                s << "\n等级: " << at->GetStats().Rating;
-                s << "\n排名: " << at->GetStats().Rank;
-                s << "\n赛季游戏: " << at->GetStats().SeasonGames;
-                s << "\n赛季胜利: " << at->GetStats().SeasonWins;
-                s << "\n本周游戏: " << at->GetStats().WeekGames;
+                s << "\n评级: " << at->GetStats().Rating;
+                s << "\n等级: " << at->GetStats().Rank;
+                s << "\n本赛季场次: " << at->GetStats().SeasonGames;
+                s << "\n本赛季胜利: " << at->GetStats().SeasonWins;
+                s << "\n本周场次: " << at->GetStats().WeekGames;
                 s << "\n本周胜利: " << at->GetStats().WeekWins;
 
                 ChatHandler(player->GetSession()).PSendSysMessage(SERVER_MSG_STRING, s.str().c_str());
@@ -369,7 +369,7 @@ bool npc_1v1arena::CreateArenateam(Player* player, Creature* /* me */)
     // Check if player is already in an arena team
     if (player->GetArenaTeamId(slot))
     {
-        player->GetSession()->SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, player->GetName(), "你已经有一个竞技场战队了!", ERR_ALREADY_IN_ARENA_TEAM);
+        player->GetSession()->SendArenaTeamCommandResult(ERR_ARENA_TEAM_CREATE_S, player->GetName(), "你已经加入了一个竞技场战队!", ERR_ALREADY_IN_ARENA_TEAM);
         return false;
     }
 
@@ -416,13 +416,13 @@ bool npc_1v1arena::Arena1v1CheckTalents(Player* player)
 
     if (player->HasHealSpec() && (sConfigMgr->GetOption<bool>("Arena1v1.PreventHealingTalents", false)))
     {
-        ChatHandler(player->GetSession()).SendSysMessage("你不能加入，因为你拥有禁止的天赋(治疗)");
+        ChatHandler(player->GetSession()).SendSysMessage("你不能加入，因为你有禁止的天赋(治疗)");
         return false;
     }
 
     if (player->HasTankSpec() && (sConfigMgr->GetOption<bool>("Arena1v1.PreventTankTalents", false)))
     {
-        ChatHandler(player->GetSession()).SendSysMessage("你不能加入，因为你拥有禁止的天赋(坦克)");
+        ChatHandler(player->GetSession()).SendSysMessage("你不能加入，因为你有禁止的天赋(坦克)");
         return false;
     }
 
