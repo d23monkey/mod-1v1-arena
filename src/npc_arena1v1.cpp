@@ -104,7 +104,7 @@ public:
     void OnPlayerLogin(Player* pPlayer) override
     {
         if (sConfigMgr->GetOption<bool>("Arena1v1.Announcer", true))
-            ChatHandler(pPlayer->GetSession()).SendSysMessage("本服务端已加载 |cff4CFF001v1 竞技场 |r模块.");
+            ChatHandler(pPlayer->GetSession()).SendSysMessage("|cff00ff00本服务端已加载|r |cff00ccff1v1竞技场 |r|cff00ff00模块.|r");
     }
 
     void OnPlayerGetMaxPersonalArenaRatingRequirement(const Player* player, uint32 minslot, uint32& maxArenaRating) const override
