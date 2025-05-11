@@ -104,7 +104,13 @@ public:
     void OnPlayerLogin(Player* pPlayer) override
     {
         if (sConfigMgr->GetOption<bool>("Arena1v1.Announcer", true))
-            ChatHandler(pPlayer->GetSession()).SendSysMessage("|cff00ff00本服务端已加载|r |cff00ccff1v1竞技场 |r|cff00ff00模块.|r");
+        {
+            uint32 loc = pPlayer->GetSession()->GetSessionDbLocaleIndex();
+            if(loc == 4)
+                ChatHandler(pPlayer->GetSession()).SendSysMessage("|cff00ff00本服务端已加载|r |cff00ccff1v1竞技场 |r|cff00ff00模块.|r");
+            else
+				ChatHandler(pPlayer->GetSession()).SendSysMessage("This server is running the |cff4CFF00Arena 1v1 |rmodule.");
+        }
     }
 
     void OnPlayerGetMaxPersonalArenaRatingRequirement(const Player* player, uint32 minslot, uint32& maxArenaRating) const override
@@ -143,7 +149,7 @@ bool npc_1v1arena::OnGossipHello(Player* player, Creature* creature)
 
     if (!teamExistForPlayerGuid(player))
     {
-        AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|TInterface/ICONS/Achievement_Arena_2v2_7:30:30:-20:0|t 创建 1v1 个人战队", GOSSIP_SENDER_MAIN, NPC_ARENA_1V1_ACTION_CREATE_ARENA_TEAM, "你确定吗?", sConfigMgr->GetOption<uint32>("Arena1v1.Costs", 400000), false);
+        AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|TInterface/ICONS/Achievement_Arena_2v2_7:30:30:-20:0|t 创建 1v1 竞技场战队", GOSSIP_SENDER_MAIN, NPC_ARENA_1V1_ACTION_CREATE_ARENA_TEAM, "你确定吗?", sConfigMgr->GetOption<uint32>("Arena1v1.Costs", 400000), false);
     }
     else
     {
